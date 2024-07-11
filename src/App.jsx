@@ -3,8 +3,10 @@ import { useRef, useState, useEffect } from 'react'
 
 export default function App() {
 
+
     const [isScrolledDown, setIsScrolledDown] = useState(false)
     const [isSocialMediaFinished, setIsSocialMediaFinished] = useState(false)
+
     useEffect(() => {
         function handleScroll() {
             if (isScrolledDown) {
@@ -73,8 +75,8 @@ function Faq() {
 
 
 function SocialMedia() {
-    // const componentRef = useRef(null);
-    // const isVisible = useIntersectionObserver(componentRef);
+    const SERVER_URL = "https://corvette-sol.xyz:8080"
+
     const CURSOR_CLASS_NAME = 'custom-type-animation-cursor';
     const linkStyle = 'hover:cursor-pointer hover:text-red-600'
 
@@ -83,6 +85,20 @@ function SocialMedia() {
         telegram: "https://telegram.com",
         pumpfun: "https://pump.fun",
     })
+
+    useEffect(() => {
+        async function getUrls() {
+            const req = await fetch(SERVER_URL + "/urls/list")
+            const urls = req.json()
+            const prefix = "doomer_dog_"
+            setUrls({
+                twitter: urls[prefix + "twitter"],
+                pumpfun: urls[prefix + "pumpfun"],
+                telegram: urls[prefix + "telegram"],
+            })
+        }
+        getUrls()
+    }, [])
 
     return (
         // isSocialMediaFinished &&
