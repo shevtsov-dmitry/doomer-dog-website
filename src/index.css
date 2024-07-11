@@ -2,9 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+
 @font-face {
-  font-family: 'windows_command_prompt';
-  src: url('public/windows_command_prompt.ttf') format('truetype');
-  /* font-weight: bold; */
+  font-family: 'Windows Command Prompt';
+  src: url('Windows-Command-Prompt.eot');
+  src: url('Windows-Command-Prompt.eot?#iefix') format('embedded-opentype'),
+    url('Windows-Command-Prompt.woff2') format('woff2'),
+    url('Windows-Command-Prompt.woff') format('woff'),
+    url('Windows-Command-Prompt.ttf') format('truetype');
+  font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
