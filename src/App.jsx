@@ -3,9 +3,15 @@ import { useRef, useState, useEffect } from 'react'
 
 export default function App() {
 
-
     const [isScrolledDown, setIsScrolledDown] = useState(false)
     const [isSocialMediaFinished, setIsSocialMediaFinished] = useState(false)
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const userAgent = navigator.userAgent;
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
+        setIsMobile(isMobile);
+    }, []);
 
     useEffect(() => {
         function handleScroll() {
@@ -30,10 +36,10 @@ export default function App() {
             <video autoPlay muted playsInline loop>
                 <source src="dog.mp4" />
             </video>
-            <div className="absolute z-10 ml-[1%] mt-[9.5%] font-windows-terminal text-7xl text-white gap-12 max-laptop:text-4xl">
-                {isScrolledDown && <SocialMedia />}
+            <div className="absolute z-10 ml-[1%] mt-[9.5%] font-windows-terminal text-7xl text-white gap-12 max-laptop:text-4xl max-[1113px]:text-xs">
+                {(isMobile || isScrolledDown) && <SocialMedia />}
                 <br />
-                {isSocialMediaFinished && <Faq />}
+                {(isMobile || isSocialMediaFinished) && <Faq />}
             </div>
             <video autoPlay muted playsInline loop>
                 <source src="terminal.mp4" />
@@ -82,7 +88,7 @@ function SocialMedia() {
 
     const [urls, setUrls] = useState({
         twitter: "https://twitter.com",
-        telegram: "https://telegram.com",
+        telegram: "https://web.telegram.com",
         pumpfun: "https://pump.fun",
     })
 
