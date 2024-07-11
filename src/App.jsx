@@ -5,15 +5,15 @@ export default function App() {
 
     const [isScrolledDown, setIsScrolledDown] = useState(false)
     const [isSocialMediaFinished, setIsSocialMediaFinished] = useState(false)
-    const [urls, setUrls] = {
-        twitter: "https://twitter.com",
-        telegram: "https://telegram.com",
-        pumpfun: "https://pump.fun",
-    }
-
     useEffect(() => {
         function handleScroll() {
-            setTimeout(() => setIsScrolledDown(true), 1000)
+            if (isScrolledDown) {
+                return
+            }
+            setTimeout(() => {
+                setIsScrolledDown(true)
+                setIsSocialMediaFinished(true)
+            }, 1000)
         }
 
         window.addEventListener('scroll', handleScroll);
@@ -21,11 +21,6 @@ export default function App() {
             window.removeEventListener('scroll', handleScroll);
         };
     }, []);
-
-    // useEffect(() => {
-    //     setTimeout(() => setIsSocialMediaFinished(true), 5000)
-    // }, [isScrolledDown])
-    //
 
 
     return (
@@ -55,6 +50,7 @@ function Faq() {
     // const componentRef = useRef(null);
     // const isVisible = useIntersectionObserver(componentRef);
 
+
     return (
         <TypeAnimation
             sequence={[
@@ -81,14 +77,27 @@ function SocialMedia() {
     // const isVisible = useIntersectionObserver(componentRef);
     const CURSOR_CLASS_NAME = 'custom-type-animation-cursor';
     const linkStyle = 'hover:cursor-pointer hover:text-red-600'
+
+    const [urls, setUrls] = useState({
+        twitter: "https://twitter.com",
+        telegram: "https://telegram.com",
+        pumpfun: "https://pump.fun",
+    })
+
     return (
         // isSocialMediaFinished &&
         // <div ref={componentRef}>
         <>
             <Media name="C:\>doomer_dog" wait="0" />
-            <u className={`${linkStyle}`}><Media name="pump.fun" wait="1" /></u >
-            <u className={`${linkStyle}`}><Media name="telegram" wait="2" /></u>
-            <u className={`${linkStyle}`}><Media name="twitter" wait="3" /></u>
+            <a href={urls["pumpfun"]}>
+                <u className={`${linkStyle}`}><Media name="pump.fun" wait="1" /></u >
+            </a >
+            <a href={urls["telegram"]}>
+                <u className={`${linkStyle}`}><Media name="telegram" wait="2" /></u>
+            </a >
+            <a href={urls["twitter"]}>
+                <u className={`${linkStyle}`}><Media name="twitter" wait="3" /></u>
+            </a >
         </ >
 
     )
