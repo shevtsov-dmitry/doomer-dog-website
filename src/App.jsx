@@ -1,22 +1,22 @@
-import { useState } from 'react'
 import { TypeAnimation } from 'react-type-animation'
 
 export default function App() {
 
     return (
-        <div>
+        <div className='bg-black'>
             <video autoPlay muted playsInline loop>
                 <source src="dog.mp4" />
             </video>
-            <div className="absolute z-10 ml-[1%] mt-[9.5%] font-windows-terminal text-7xl text-white">
+            <div className="absolute z-10 ml-[1%] mt-[9.5%] font-windows-terminal text-7xl text-white gap-12">
                 <SocialMedia />
+                <br />
                 <Faq />
             </div>
             <video autoPlay muted playsInline loop>
-                <source src="terminal.mov" />
+                <source src="terminal.mp4" />
             </video>
             <video autoPlay muted playsInline loop>
-                <source src="dog-on-pc.mov" />
+                <source src="dog-on-pc.mp4" />
             </video>
         </div>
     )
@@ -27,7 +27,6 @@ const typingSpeed = 30
 
 function Faq() {
     return (
-
         <TypeAnimation
             sequence={[
                 250,
@@ -46,40 +45,49 @@ function Faq() {
     )
 }
 
+
 function SocialMedia() {
 
-    // let [text, setText] = useState('C:>doomer_dog\n')
+    const CURSOR_CLASS_NAME = 'custom-type-animation-cursor';
 
     return (
-        <>
-            <TypeAnimation
+        <div className=''>
+            <Media name="C:\>doomer_dog" wait="0" />
+            <Media name="pump.fun" wait="1" />
+            <Media name="telegram" wait="2" />
+            <Media name="twitter" wait="3" />
+        </div>
+    )
+
+    function Media(props) {
+        const waitChuck = 800
+        if (props.name === "twitter") {
+            return <TypeAnimation
                 sequence={[
-                    "C:>doomer_dog", (thiz) => showCursorAnimation(thiz, false)
-                    //        (()=> {text += '>telegram\n'}),
-                    // text , 500,
-                    // 'C:>doomer_dog\n' + '>pumpfun\n' + '>telegram\n' + '>twitter', 1500, 
-                    // 'C:>doomer_dog\n' + '>pumpfun\n' + '>telegram\n' + '>X', 
-                    // 'C:>doomer_dog\n' + '>pumpfun\n' + '>telegram\n' + '>X\n\n',
-                    // 'C:>doomer_dog\n' + '>pumpfun\n' + '>telegram\n' + '>X\n\n',
-                    // C:\>FAQ
-                    // >he has no friend
-                    // >he has no personal life
-                    // >he gambles on pumpfun 24/7
-                    // >he is just like you, anon
-                    //
-                    // whiteSpace: 'pre-line',
+                    parseInt(props.wait) * waitChuck,
+                    '>' + props.name, 2300, '>X'
                 ]}
-                wrapper="span"
+                className={CURSOR_CLASS_NAME}
+                cursor={false}
+                wrapper="div"
                 speed={typingSpeed}
-                style={{ display: 'flex', flexDirection: "column" }}
                 repeat={0}
             />
-        </>
-    )
+        }
+        return <TypeAnimation
+            sequence={[
+                parseInt(props.wait) * waitChuck,
+                '>' + props.name
+            ]}
+            className={CURSOR_CLASS_NAME}
+            cursor={false}
+            wrapper="div"
+            speed={typingSpeed}
+            repeat={0}
+        />
+    }
 }
 
-
-const CURSOR_CLASS_NAME = 'custom-type-animation-cursor';
 
 function showCursorAnimation(ref, isShown) {
     if (!ref.current) {
