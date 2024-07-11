@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: 'windows_command_prompt';
+  src: url('public/windows_command_prompt.ttf') format('truetype');
+  /* font-weight: bold; */
+  font-style: normal;
+}
